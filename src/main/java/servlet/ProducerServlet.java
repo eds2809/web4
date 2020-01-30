@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class ProducerServlet extends HttpServlet {
 
@@ -20,8 +19,7 @@ public class ProducerServlet extends HttpServlet {
             String licensePlate = req.getParameter("licensePlate");
             long price = Long.parseLong(req.getParameter("price"));
 
-            Car car = new Car(brand, model, licensePlate, price);
-            resp.setStatus(CarService.getInstance().addCar(car) ? HttpServletResponse.SC_OK : HttpServletResponse.SC_FORBIDDEN);
+            resp.setStatus(CarService.getInstance().addCar(new Car(brand, model, licensePlate, price)) ? HttpServletResponse.SC_OK : HttpServletResponse.SC_FORBIDDEN);
         } catch (NumberFormatException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
